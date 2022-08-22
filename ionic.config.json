@@ -1,0 +1,7 @@
+{
+  "name": "BBMobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
