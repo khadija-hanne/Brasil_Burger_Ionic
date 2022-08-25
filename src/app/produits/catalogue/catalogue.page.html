@@ -1,0 +1,23 @@
+
+
+
+  <!----> <section>
+    <div class="col-4 offset-4">
+      <input class="form-control col-6" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" style="border: 3px solid orange;">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+  </div>
+      <div class="text-center container py-5">
+    
+        <div class="row main">
+          
+          <div class="mt-5 row">
+              <span class="h4 bg-danger p-3 shadow-lg p-3 mb-5 rounded">Nos Burgers</span>
+              <app-catalogue-item *ngFor="let cat of burgers" [product]="cat" class="col-sm-3" ></app-catalogue-item>
+              <span class="h4  bg-danger p-3 shadow-lg p-3 mb-5 rounded">Nos Menus</span>
+              <app-catalogue-item *ngFor="let cat of menus" [product]="cat" class="col-sm-3 mb-4" ></app-catalogue-item>
+          </div>
+        </div>
+    </div>
+    
+    </section>
+

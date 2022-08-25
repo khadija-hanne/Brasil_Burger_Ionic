@@ -1,0 +1,32 @@
+
+  <ion-list>
+
+    <ion-list-header> NOS BURGERS </ion-list-header>
+    <ion-item *ngFor="let burger of burgers" button>
+      <ion-avatar slot="start">
+        <img [src]="transform('data:image/jpg;base64,' + burger.image)" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{burger.nom}}</h2>
+        <h3>{{burger.prix}}</h3>
+        <p>{{burger.typeProduit}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list routerLink="/tabs/tab2">
+    <ion-list-header> NOS MENUS </ion-list-header>
+    <ion-item *ngFor="let menu of menus" button>
+      <ion-avatar slot="start">
+        <img [src]="transform('data:image/jpg;base64,' + menu.image)" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{menu.nom}}</h2>
+        <h3>{{menu.prix}}</h3>
+        <p>{{menu.typeProduit}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  
+
