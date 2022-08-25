@@ -5,22 +5,25 @@
       
       <ion-icon name="fast-food-outline" style="color: red;"></ion-icon>
     </div>
+    <form action="" [formGroup]="form" (ngSubmit)=connexion()>
+      <ion-item >
+        <ion-label color="light">Email</ion-label> <br>
+        <ion-input color="light" type="mail" formControlName="username" [(ngModel)]="username" required></ion-input>
+      </ion-item>
 
-    <ion-item >
-      <ion-label color="light">Email</ion-label> <br>
-      <ion-input color="light" type="mail" placeholder="Adresse email"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label color="light">Mot de passe</ion-label> <br>
+        <ion-input color="light" type="password" formControlName="password" [(ngModel)]="password" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label color="light">Mot de passe</ion-label> <br>
-      <ion-input color="light" type="password" placeholder="Mot de passe"></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-button color="light" slot="end" fill="clear">Mot de passe oublié ?</ion-button>
-    </ion-item>
-
-    <ion-button color="light" expand="block" shape="round" fill="outline" routerLink="/tabs/tab3" routerDirection="forward">Connexion</ion-button>
-    
+      <ion-item lines="none">
+        <ion-button color="light" slot="end" fill="clear">Mot de passe oublié ?</ion-button>
+      </ion-item>
+<!--
+      <ion-button color="light" expand="block" shape="round" fill="outline" routerLink="/tabs/tab1" routerDirection="forward">tester</ion-button>
+      <button></button>
+      -->
+      <ion-button color="light" expand="block" shape="round" fill="outline" (click)="connexion()">Se connecter</ion-button>
+    </form>
   </div>
 </ion-content>

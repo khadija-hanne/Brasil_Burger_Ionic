@@ -26,6 +26,6 @@ import { CatalogueListPageModule } from './catalogue-list/catalogue-list.module'
     CatalogueItemPage
   ],
 
-  exports: [CataloguePageModule]
+  exports: [CataloguePage]
 })
 export class CataloguePageModule {}

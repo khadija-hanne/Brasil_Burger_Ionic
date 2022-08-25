@@ -1,3 +1,6 @@
+/* eslint-disable eol-last */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable @typescript-eslint/type-annotation-spacing */
 
 
 export interface User{
@@ -6,6 +9,7 @@ export interface User{
     nom: string;
     prenom : string;
     email:string;
+    password:string;
     telephone:string;
 }
 

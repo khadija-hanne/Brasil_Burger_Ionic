@@ -2,7 +2,7 @@
   <ion-list>
 
     <ion-list-header> NOS BURGERS </ion-list-header>
-    <ion-item *ngFor="let burger of burgers" button>
+    <ion-item *ngFor="let burger of burgers" button animated detail>
       <ion-avatar slot="start">
         <img [src]="transform('data:image/jpg;base64,' + burger.image)" />
       </ion-avatar>
@@ -16,7 +16,7 @@
 
   <ion-list routerLink="/tabs/tab2">
     <ion-list-header> NOS MENUS </ion-list-header>
-    <ion-item *ngFor="let menu of menus" button>
+    <ion-item *ngFor="let menu of menus" button animated detail>
       <ion-avatar slot="start">
         <img [src]="transform('data:image/jpg;base64,' + menu.image)" />
       </ion-avatar>

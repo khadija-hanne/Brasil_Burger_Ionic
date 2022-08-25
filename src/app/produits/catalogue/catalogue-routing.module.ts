@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'catalogue-list',
     loadChildren: () => import('./catalogue-list/catalogue-list.module').then( m => m.CatalogueListPageModule)
+  },
+  {
+    path: 'catalogue-detail',
+    loadChildren: () => import('./catalogue-detail/catalogue-detail.module').then( m => m.CatalogueDetailPageModule)
   }
 ];
 
