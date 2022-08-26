@@ -32,4 +32,5 @@ export interface Livreur{
     telephone:string;
     matricule : string;
     etatLivreur : string;
+    livraisons : any[];
 }

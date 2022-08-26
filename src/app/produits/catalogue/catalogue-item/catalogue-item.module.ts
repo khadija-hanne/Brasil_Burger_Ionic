@@ -17,6 +17,6 @@ import { CatalogueItemPage } from './catalogue-item.page';
   ],
   declarations: [CatalogueItemPage],
 
-  exports: [CatalogueItemPageModule]
+  exports: [CatalogueItemPage]
 })
 export class CatalogueItemPageModule {}

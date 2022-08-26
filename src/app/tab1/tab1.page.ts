@@ -16,17 +16,6 @@ export class Tab1Page {
 
   constructor() {}
 
-  show(){
-    this.grille = true;
-    this.liste = false;
-  }
-  show1(){
-    this.grille = false;
-    this.liste = true;
-  }
-
-
-
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;
   }

@@ -1,6 +1,11 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/type-annotation-spacing */
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Client, Livreur } from '../model/user';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +13,19 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   headers : HttpHeaders;
-  constructor() {
-    const token = localStorage.getItem('token');
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer' + token);
+  constructor(private http : HttpClient) {
+    /* const token = localStorage.getItem('token');
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer' + token); */
   }
+
+  getLivreurs():Observable<Livreur[]>{
+    return this.http.get<Livreur[]>(environment.url+'livreurs');
+  }
+
+  getLivreur(id:number):Observable<Livreur>{
+    return this.http.get<Livreur>(environment.url+'livreurs/'+id);
+  }
+
 }
+
+

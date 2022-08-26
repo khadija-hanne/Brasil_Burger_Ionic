@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthentificationGuard } from '../guards/authentification.guard';
 
 import { ProduitsPage } from './produits.page';
 
@@ -10,7 +11,8 @@ const routes: Routes = [
   },
   {
     path: 'catalogue',
-    loadChildren: () => import('./catalogue/catalogue.module').then( m => m.CataloguePageModule)
+    loadChildren: () => import('./catalogue/catalogue.module').then( m => m.CataloguePageModule),
+    canActivate: [AuthentificationGuard]
   }
 ];
 

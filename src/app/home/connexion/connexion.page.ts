@@ -1,11 +1,14 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/dot-notation */
 /* eslint-disable @typescript-eslint/type-annotation-spacing */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/model/user';
+import { Livreur, User } from 'src/app/model/user';
+import jwt_decode from 'jwt-decode';
 import { AuthentificationService } from 'src/app/services/authentification.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-connexion',
@@ -14,12 +17,14 @@ import { AuthentificationService } from 'src/app/services/authentification.servi
 })
 export class ConnexionPage implements OnInit {
   user:User;
+  livreur : Livreur;
+  livreurs : Livreur[];
   // Nos champs requis dans le formulaire
   username: string = '';
   password: string = '';
   // Le formulaire
   form;
-  constructor(private serviceAuth : AuthentificationService, private router : Router,private formBuilder: FormBuilder ) {
+  constructor(private serviceUser : UserService, private serviceAuth : AuthentificationService, private router : Router,private formBuilder: FormBuilder ) {
     this.form = this.formBuilder.group({
       username: '',
       password: ''
@@ -30,18 +35,40 @@ export class ConnexionPage implements OnInit {
   }
 
   connexion(){
+    this.serviceUser.getLivreurs().subscribe(res => {
+      this.livreurs = res;
+      // this.livreur = res.find((tech) => tech.title === title)
+    });
+
     console.log(this.form.value);
     this.serviceAuth.login(this.form.value).subscribe(res => {
-      console.log(res['token']);
+
+      console.log(this.livreur);
       // eslint-disable-next-line @typescript-eslint/dot-notation
       if (res['token']) {
         localStorage.setItem('token', res['token']);
-        this.router.navigateByUrl('/tabs/tab1');
+        // this.getDecodedAccessToken(res['token']).roles.forEach(element => {
+          if (this.getDecodedAccessToken(res['token']).roles[0] === 'ROLE_LIVREUR') {
+            console.log(this.getDecodedAccessToken(res['token']).roles[0]);
+            this.router.navigateByUrl('/livraison');
+          }else if (this.getDecodedAccessToken(res['token']).roles[0] === 'ROLE_CLIENT') {
+            this.router.navigateByUrl('/tabs/tab1');
+          }
+        // });
       }
       else {
         this.router.navigateByUrl('/tabs/tab2');
       }
       });
     }
+
+    getDecodedAccessToken(token: string): any {
+      try {
+        return jwt_decode(token);
+      } catch(Error) {
+        return null;
+      }
+    }
+
 
 }
