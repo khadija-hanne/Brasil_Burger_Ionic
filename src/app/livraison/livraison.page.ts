@@ -12,6 +12,8 @@ import { LivraisonService } from '../services/livraison.service';
 import { UserService } from '../services/user.service';
 import jwt_decode from 'jwt-decode';
 import { formatDate } from '@angular/common';
+import { Commande } from '../model/commande';
+import { Livraison } from '../model/livraison';
 
 
 @Component({
@@ -22,29 +24,32 @@ import { formatDate } from '@angular/common';
 export class LivraisonPage implements OnInit {
   livreur : Livreur;
   livreurs : Livreur[];
+  livraison : Livraison;
   livraisons : any[];
   livraisonsToday : any[];
+  commandes: Commande[];
   token:any;
-  // reTime = /(\d+\-\d+\-\d+)\D\:(\d+\:\d+\:\d+).+/;
   constructor(private serviceLivraison : LivraisonService, private serviceUser : UserService,private serviceAuth:AuthentificationService, private route : ActivatedRoute) { }
 
   ngOnInit() {
 
         //  console.log(this.getDecodedAccessToken(this.serviceLivraison.getToken()).username);
 
-    this.serviceLivraison.findLivreur(this.getDecodedAccessToken(this.serviceLivraison.getToken()).username).subscribe(res => {
-      console.log(res);
+    this.serviceLivraison.findLivreur(this.serviceUser.getDecodedAccessToken(this.serviceLivraison.getToken()).username).subscribe(res => {
+      // console.log(res);
       this.livreur = res[0];
       this.livraisons = this.livreur.livraisons;
-      console.log(this.livraisons[0].commandes[0].id);
+      console.log(this.livraisons[1].commandes);
       this.livraisons.forEach(element => {
-        for (let i = 0; i < element.commandes.length; i++) {
+        console.log(element);
+        
+        /* for (let i = 0; i < element.commandes.length; i++) {
           // console.log(element.commandes[i].date);
           this.livraisonsToday.push(element.commandes[i]);
           
-        }
-      });
-
+        } */
+      }); 
+      
       
     });
     
@@ -63,12 +68,32 @@ export class LivraisonPage implements OnInit {
 
   }
 
-  getDecodedAccessToken(token: string): any {
-    try {
-      return jwt_decode(token);
-    } catch(Error) {
-      return null;
-    }
+  /* showDetail(id:number) {
+    const nav = document.querySelector('ion-nav');
+    const livraison = this.livraisons.find((liv) => liv.id === id);
+    nav.push('nav-detail', { livraison });
+  } */
+
+
+  showCommandes(livraison: Livraison){
+    this.commandes = [];
+      livraison.commandes.forEach(element => {
+        this.commandes.push(element);
+      });
+      return this.commandes;
   }
 
+  getLiv(id:number){
+    this.serviceLivraison.getLivraison(id).subscribe(
+      res =>{
+        this.livraison = res;
+        console.log(this.livraison.zone); 
+        this.commandes = this.livraison.commandes;
+    console.log(this.commandes);
+
+      }
+    );
+    return this.commandes;
+    
+  }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 import { Produits } from "./produits";
 
 
@@ -5,7 +6,6 @@ import { Produits } from "./produits";
 export interface Complements {
 
     frites: Produits[];
-    boisson : Produits[];
-    
+    boisson: Produits[];
+
   }
-  

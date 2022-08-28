@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Client, Livreur } from '../model/user';
+import jwt_decode from 'jwt-decode';
+
 
 
 @Injectable({
@@ -24,6 +26,14 @@ export class UserService {
 
   getLivreur(id:number):Observable<Livreur>{
     return this.http.get<Livreur>(environment.url+'livreurs/'+id);
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
   }
 
 }

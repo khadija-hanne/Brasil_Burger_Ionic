@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environment } from 'src/environments/environment';
+import { Livraison } from '../model/livraison';
 import { Menu } from '../model/menu';
 import { Produits } from '../model/produits';
 import { Livreur } from '../model/user';
@@ -17,15 +18,19 @@ export class LivraisonService {
 
   constructor(private http : HttpClient){}
 
+  // Récupérer le livreur par email
   findLivreur(email : string):Observable<Livreur>{
     return this.http.get<Livreur>(environment.url+'users?email='+email);
   }
 
-  getToken(){
-    
+
+  // Récupérer le token dans le local storage
+  getToken(){ 
    return localStorage.getItem('token');
- 
   }
 
+  getLivraison(id:number):Observable<Livraison>{
+    return this.http.get<Livraison>(environment.url+'livraisons/'+id);
+  }
   
 }

@@ -15,6 +15,9 @@ import { LivraisonPage } from './livraison.page';
     IonicModule,
     LivraisonPageRoutingModule
   ],
-  declarations: [LivraisonPage]
+  declarations: [
+    LivraisonPage,
+
+  ]
 })
 export class LivraisonPageModule {}

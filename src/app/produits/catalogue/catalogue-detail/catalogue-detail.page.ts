@@ -19,13 +19,13 @@ export class CatalogueDetailPage implements OnInit {
   constructor(private route:ActivatedRoute, private serviceProduit:ProduitService,private sanitizer : DomSanitizer) { }
 
   ngOnInit() {
-    const productId = this.route.snapshot.params['id'];
+    /* const productId = this.route.snapshot.params['id'];
     this.serviceProduit.getProduct(productId).subscribe(resultat => 
       {
         this.product = resultat;
         
       }
-    );
+    ); */
   }
 
 }

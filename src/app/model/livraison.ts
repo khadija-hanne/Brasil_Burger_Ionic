@@ -3,11 +3,14 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 import { Commande } from "./commande";
+import { Zone } from "./zone";
 
 export interface Livraison {
     
         livreur: string,
+        date: Date;
+        etatLivraison: string;
         commandes: Commande[],
-        zone: any
+        zone: Zone
       
 }

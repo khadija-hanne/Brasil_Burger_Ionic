@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Livreur, User } from 'src/app/model/user';
-import jwt_decode from 'jwt-decode';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -48,10 +47,10 @@ export class ConnexionPage implements OnInit {
       if (res['token']) {
         localStorage.setItem('token', res['token']);
         // this.getDecodedAccessToken(res['token']).roles.forEach(element => {
-          if (this.getDecodedAccessToken(res['token']).roles[0] === 'ROLE_LIVREUR') {
-            console.log(this.getDecodedAccessToken(res['token']).roles[0]);
+          if (this.serviceUser.getDecodedAccessToken(res['token']).roles[0] === 'ROLE_LIVREUR') {
+            console.log(this.serviceUser.getDecodedAccessToken(res['token']).roles[0]);
             this.router.navigateByUrl('/livraison');
-          }else if (this.getDecodedAccessToken(res['token']).roles[0] === 'ROLE_CLIENT') {
+          }else if (this.serviceUser.getDecodedAccessToken(res['token']).roles[0] === 'ROLE_CLIENT') {
             this.router.navigateByUrl('/tabs/tab1');
           }
         // });
@@ -62,13 +61,7 @@ export class ConnexionPage implements OnInit {
       });
     }
 
-    getDecodedAccessToken(token: string): any {
-      try {
-        return jwt_decode(token);
-      } catch(Error) {
-        return null;
-      }
-    }
+
 
 
 }
