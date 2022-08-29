@@ -17,8 +17,13 @@ export class ProduitService {
     return this.http.get<Menu>(environment.url+'produits'+id);
   }
 
-  getProducts():Observable<Produits[]>{
-    return this.http.get<Produits[]>(environment.url+'produits');
+  getProducts(type: string):Observable<Produits[]>{
+    return this.http.get<Produits[]>(environment.url+type);
   }
+
+  getMenus():Observable<Menu[]>{
+    return this.http.get<Menu[]>(environment.url+'menus');
+  }
+
 
 }

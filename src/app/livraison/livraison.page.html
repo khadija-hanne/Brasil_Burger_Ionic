@@ -1,6 +1,9 @@
 <ion-header translucent>
-  <ion-toolbar>
+  <ion-toolbar color="warning">
     <ion-title></ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -27,7 +30,7 @@
             <h2>{{(i+1)*3000}}F</h2>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="warning" (click)="favorite(item)">QR code</ion-item-option>
+            <ion-item-option color="warning" id="open-modal" (click)="startScan()">QR code</ion-item-option>
             <ion-item-option color="danger" (click)="share(item)">Code</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
@@ -36,4 +39,34 @@
     </div>
   </ion-accordion>
 </ion-accordion-group>
+
+
+<canvas #canvas hidden></canvas>
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>QR code</ion-card-title>
+  </ion-card-header>
+  <video #video [hidden]="!scanActive" width="50%"></video>
+
+  <ion-card-content>
+    {{scanResult}}
+  </ion-card-content>
+</ion-card>
+
+<!--
+<ion-button expand="block">Open Modal</ion-button>
+
+  <ion-modal #modal trigger="open-modal"[hidden]="!scanActive">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="light" (click)="modal.dismiss()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+              </ion-content>
+    </ng-template>
+  </ion-modal> -->
 </ion-content>

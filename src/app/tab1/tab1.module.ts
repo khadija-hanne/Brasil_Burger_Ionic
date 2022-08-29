@@ -11,6 +11,7 @@ import { CataloguePage } from '../produits/catalogue/catalogue.page';
 import { SharedDirectivesModule } from '../directives/shared-directives.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { CatalogueListPage } from '../produits/catalogue/catalogue-list/catalogue-list.page';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { CatalogueListPage } from '../produits/catalogue/catalogue-list/catalogu
     FormsModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
+    QRCodeModule,
     // CatalogueItemPageModule
   ],
   declarations: [

@@ -39,16 +39,16 @@ export class ConnexionPage implements OnInit {
       // this.livreur = res.find((tech) => tech.title === title)
     });
 
-    console.log(this.form.value);
+    // console.log(this.form.value);
     this.serviceAuth.login(this.form.value).subscribe(res => {
 
-      console.log(this.livreur);
+      // console.log(this.livreur);
       // eslint-disable-next-line @typescript-eslint/dot-notation
       if (res['token']) {
         localStorage.setItem('token', res['token']);
         // this.getDecodedAccessToken(res['token']).roles.forEach(element => {
           if (this.serviceUser.getDecodedAccessToken(res['token']).roles[0] === 'ROLE_LIVREUR') {
-            console.log(this.serviceUser.getDecodedAccessToken(res['token']).roles[0]);
+            // console.log(this.serviceUser.getDecodedAccessToken(res['token']).roles[0]);
             this.router.navigateByUrl('/livraison');
           }else if (this.serviceUser.getDecodedAccessToken(res['token']).roles[0] === 'ROLE_CLIENT') {
             this.router.navigateByUrl('/tabs/tab1');
