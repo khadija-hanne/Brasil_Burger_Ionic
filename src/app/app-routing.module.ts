@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthentificationGuard } from './guards/authentification.guard';
 
 const routes: Routes = [
   {
@@ -16,11 +17,18 @@ const routes: Routes = [
   },
   {
     path: 'livraison',
-    loadChildren: () => import('./livraison/livraison.module').then( m => m.LivraisonPageModule)
+    loadChildren: () => import('./livraison/livraison.module').then( m => m.LivraisonPageModule),
+    canActivate: [AuthentificationGuard]
   },
   {
     path: 'user-profile',
-    loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+    loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule),
+    canActivate: [AuthentificationGuard]
+  },
+  {
+    path: 'client',
+    loadChildren: () => import('./client/client.module').then( m => m.ClientPageModule),
+    canActivate: [AuthentificationGuard]
   }
 ];
 @NgModule({

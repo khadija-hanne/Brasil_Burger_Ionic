@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mes commandes</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-accordion-group *ngFor="let commande of commandes; let i = index">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label><h2>commande {{i+1}}</h2> 
+          <p>{{commande.reference}}</p>
+          <p>{{commande.etatCommande}}</p>
+          <p>{{commande.id}}</p>
+        </ion-label>
+      </ion-item>
+      
+      <div class="ion-padding" slot="content">
+        <ion-card class="music-card">
+          <ion-card-header>
+            <qrcode qrdata={{commande.code}}></qrcode>
+          </ion-card-header>
+          <ion-card-content text-center>
+            <h1>{{commande.code}}</h1>
+
+          </ion-card-content>
+          
+        </ion-card>
+        <ion-button color="danger" (click)="annulerCommande(commande,'annulée')" >Annuler une commande</ion-button>
+
+
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

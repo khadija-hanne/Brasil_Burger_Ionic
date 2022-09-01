@@ -15,8 +15,13 @@ import jwt_decode from 'jwt-decode';
 import { formatDate } from '@angular/common';
 import { Commande } from '../model/commande';
 import { Livraison } from '../model/livraison';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { AlertController, IonModal, LoadingController, ToastController } from '@ionic/angular';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import jsQR from 'jsqr';
+import { CommandeService } from '../services/commande.service';
+// import { BarcodeScanner, BarcodeScannerOptions } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+
 
 
 @Component({
@@ -27,22 +32,35 @@ import jsQR from 'jsqr';
 export class LivraisonPage implements OnInit {
   @ViewChild('video',{ static: false }) video: ElementRef;
   @ViewChild('canvas',{ static: false }) canvas: ElementRef;
+  @ViewChild(IonModal) modal: IonModal;
+
+  message = 'Code invalide';
+  name: any;
+  show= false;
   videoElement : any;
   canvasElement : any;
   canvasContext : any;
   loading : HTMLIonLoadingElement;
   scanActive = true;
   scanResult = null;
+  scannedData: any;
+  encodedData: '';
+  encodeData: any;
+  inputData: any;
   livreur : Livreur;
   livreurs : Livreur[];
   livraison : Livraison;
   livraisons : any[];
   livraisonsToday : any[];
   commandes: Commande[];
- 
+  searchText : any;
+  
   constructor(
+    private alertController: AlertController,
+    // private barcodeScanner: BarcodeScanner,
     private toastCtrl : ToastController,
     private serviceLivraison : LivraisonService, 
+    private serviceCommande : CommandeService, 
     private serviceUser : UserService,
     private serviceAuth:AuthentificationService,
     private route : ActivatedRoute,
@@ -50,17 +68,27 @@ export class LivraisonPage implements OnInit {
 
   ngOnInit() {
 
+    this.searchText = this.serviceLivraison.nowDate();
+
         //  console.log(this.getDecodedAccessToken(this.serviceLivraison.getToken()).username);
 
     this.serviceLivraison.findLivreur(this.serviceUser.getDecodedAccessToken(this.serviceLivraison.getToken()).username).subscribe(res => {
       // console.log(res);
       this.livreur = res[0];
       this.livraisons = this.livreur.livraisons;
+
+      /* this.livreur.livraisons.forEach(element => {
+        if (element.etatLivraison === 'en cours') {
+          this.livraisons.push(element);
+        }
+      });
+      console.log(this.livraison); */
       
     });
 
   }
 
+  
   ngAfterViewInit(){
     this.videoElement = this.video.nativeElement;
     this.canvasElement = this.canvas.nativeElement;
@@ -104,10 +132,10 @@ export class LivraisonPage implements OnInit {
       const imageData = this.canvasContext.getImageData(
         0,
         0,
-        200,
-        200
-        /* this.canvasElement.width,
-        this.canvasElement.height */
+        300,
+        150
+        /*  this.canvasElement.width,
+        this.canvasElement.height  */
       );
       
       const code = jsQR(imageData.data, imageData.width, imageData.height, {
@@ -142,5 +170,52 @@ export class LivraisonPage implements OnInit {
         }
       ]
     });
+  }
+
+  
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm(livraison: Livraison) {
+    // const input = document.querySelectorAll<HTMLInputElement>('input[type="number"]');
+    livraison.commandes.forEach(element => {
+    console.log(this.name,element.code);
+
+      if (element.code === +this.name) {
+        this.changerEtatCommande(element,'terminée');
+        this.changerEtatLivraison(livraison,'terminée');
+        this.modal.dismiss(this.name, 'confirm');
+
+      }else{
+        this.show= true;
+        return;
+      }
+    });
+    /*
+    
+     livraisons.forEach(element => {
+      if (li) {
+        array
+      }
+    }); */
+    // this.modal.dismiss(this.name, 'confirm');
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
+    }
+  }
+  
+
+  changerEtatCommande(commande: Commande, etat: string){
+    this.serviceCommande.changerEtat(commande, etat);
+  }
+
+  changerEtatLivraison(livraison: Livraison, etat: string){
+    this.serviceLivraison.changerEtat(livraison,etat);
   }
 }

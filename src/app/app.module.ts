@@ -10,6 +10,14 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { QRCodeModule } from 'angularx-qrcode';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+// import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +28,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     HttpClientModule,
     ReactiveFormsModule,
     QRCodeModule,
+    Ng2SearchPipeModule
+    // BarcodeScanner
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -8,7 +8,10 @@
 </ion-header>
 
 <ion-content >
-  <ion-accordion-group *ngFor="let liv of livraisons; let i = index">
+  <div>
+    <input class="form-control" type="date" name="search" [(ngModel)]="searchText" autocomplete="off" style="border: 3px solid orange;">
+  </div>
+  <ion-accordion-group *ngFor="let liv of livraisons | filter:searchText; let i = index">
   <ion-accordion value="first">
     <ion-item slot="header" color="light">
       <ion-label>Livraison {{i+1}}
@@ -30,8 +33,33 @@
             <h2>{{(i+1)*3000}}F</h2>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option color="warning" id="open-modal" (click)="startScan()">QR code</ion-item-option>
-            <ion-item-option color="danger" (click)="share(item)">Code</ion-item-option>
+            <ion-item-option color="warning" (click)="startScan()">QR code</ion-item-option>
+            <ion-item-option color="danger" id="open-modal">Code
+              
+              <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+                <ng-template>
+                  <ion-header color="warning">
+                    <ion-toolbar>
+                      <ion-buttons slot="start">
+                        <ion-button (click)="cancel()">Cancel</ion-button>
+                      </ion-buttons>
+                      <ion-title>Welcome</ion-title>
+                      <ion-buttons slot="end">
+                        <ion-button (click)="confirm(liv)" [strong]="true">Confirm</ion-button>
+                      </ion-buttons>
+                    </ion-toolbar>
+                  </ion-header>
+                  <ion-content class="ion-padding">
+                    <ion-item>
+                      <ion-label position="stacked">Entrer le code</ion-label>
+                      <ion-input type="text" placeholder="" [(ngModel)]="name"></ion-input>
+                      <small *ngIf="show">{{message}}</small>
+                    </ion-item>
+                  </ion-content>
+                </ng-template>
+              </ion-modal>
+             
+            </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       
@@ -40,6 +68,7 @@
   </ion-accordion>
 </ion-accordion-group>
 
+                
 
 <canvas #canvas hidden></canvas>
 
@@ -47,7 +76,7 @@
   <ion-card-header>
     <ion-card-title>QR code</ion-card-title>
   </ion-card-header>
-  <video #video [hidden]="!scanActive" width="50%"></video>
+  <video #video [hidden]="!scanActive" width="100%"></video>
 
   <ion-card-content>
     {{scanResult}}
@@ -55,18 +84,9 @@
 </ion-card>
 
 <!--
-<ion-button expand="block">Open Modal</ion-button>
 
-  <ion-modal #modal trigger="open-modal"[hidden]="!scanActive">
-    <ng-template>
-      <ion-content>
-        <ion-toolbar>
-          <ion-title>Modal</ion-title>
-          <ion-buttons slot="end">
-            <ion-button color="light" (click)="modal.dismiss()">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-              </ion-content>
-    </ng-template>
-  </ion-modal> -->
-</ion-content>
+                <p>{{ message }}</p>
+
+
+  
+-->

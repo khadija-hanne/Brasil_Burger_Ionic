@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { LivraisonPageRoutingModule } from './livraison-routing.module';
 
 import { LivraisonPage } from './livraison.page';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LivraisonPageRoutingModule
+    LivraisonPageRoutingModule,
+    Ng2SearchPipeModule
   ],
   declarations: [
     LivraisonPage,

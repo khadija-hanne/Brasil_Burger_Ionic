@@ -12,6 +12,7 @@ export interface Commande {
     client : Client;
     date : Date;
     reference : string;
+    code : number;
     etatCommande :string;
     Produits : [
         {

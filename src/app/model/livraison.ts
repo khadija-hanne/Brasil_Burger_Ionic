@@ -6,7 +6,7 @@ import { Commande } from "./commande";
 import { Zone } from "./zone";
 
 export interface Livraison {
-    
+        id: number;
         livreur: string,
         date: Date;
         etatLivraison: string;

@@ -22,15 +22,18 @@
               <ion-item routerLink="/produits/frites" routerDirection="forward">Frites</ion-item>
             </ion-label>
           </ion-item>
-          <ion-item routerLink="/tabs/tab2" routerDirection="forward">
+          <ion-item routerLink="/user-profile" routerDirection="forward">
             <ion-label>Mon profil</ion-label>
           </ion-item>
-          <ion-item routerLink="/tabs/tab2" routerDirection="forward">
+          <ion-item routerLink="/client" routerDirection="forward">
             <ion-label>Mes commandes</ion-label>
           </ion-item>
-          <ion-item routerLink="/tabs/tab2" routerDirection="forward">
+          <ion-item  (click)="deconnexion()" button>
             <ion-icon name="log-out-outline"></ion-icon>
             <ion-label>Déconnexion</ion-label>
+          </ion-item>
+          <ion-item routerLink="/livraison" routerDirection="forward">
+            <ion-label>Mes livraisons</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

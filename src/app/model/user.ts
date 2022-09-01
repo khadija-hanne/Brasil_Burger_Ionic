@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable eol-last */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/type-annotation-spacing */
+
+import { Commande } from "./commande";
 
 
 export interface User{
@@ -21,6 +24,7 @@ export interface Client{
     email:string;
     telephone:string;
     adresse:string;
+    commandes:Commande[];
 }
 
 export interface Livreur{
